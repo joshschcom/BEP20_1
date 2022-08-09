@@ -1,33 +1,10 @@
+//SPDX-License-Identifier: MIT 
 pragma solidity 0.5.16;
 
-interface IBEP20 {
- 
-  function totalSupply() external view returns (uint256);
+// Thanks to: https://github.com/agussaifuddin , @sprawidj
+// Creator: https://github.com/joshschcom/CRC20-Token/edit/main/crc20sample.sol
 
-  function decimals() external view returns (uint8);
-
-  function symbol() external view returns (string memory);
-
-  function name() external view returns (string memory);
-
-  function getOwner() external view returns (address);
-
-  function balanceOf(address account) external view returns (uint256);
-
-  function transfer(address recipient, uint256 amount) external returns (bool);
-
- 
-
-  function approve(address spender, uint256 amount) external returns (bool);
-
-  function transferFrom(address sender, address recipient, uint256 amount) external returns (bool);
-
-  event Transfer(address indexed from, address indexed to, uint256 value);
-
-
-  event Approval(address indexed owner, address indexed spender, uint256 value);
-}
-
+import "./IERC20.sol";
 
 contract Context {
   // Empty internal constructor, to prevent people from mistakenly deploying
@@ -150,7 +127,7 @@ contract Ownable is Context {
   }
 }
 
-contract SAMPLENAME is Context, IBEP20, Ownable {
+contract SAMPLENAME is Context, IERC20, Ownable {
   using SafeMath for uint256;
 
   mapping (address => uint256) private _balances;
@@ -163,8 +140,8 @@ contract SAMPLENAME is Context, IBEP20, Ownable {
   string private _name;
 
   constructor() public {
-    _name = "RewardToken";
-    _symbol = "Reward";
+    _name = "SampleToken";
+    _symbol = "Sample";
     _decimals = 8;
     _totalSupply = 100000000000000; // 1 Million
     _balances[msg.sender] = _totalSupply;
@@ -238,8 +215,8 @@ contract SAMPLENAME is Context, IBEP20, Ownable {
 
 
   function _approve(address owner, address spender, uint256 amount) internal {
-    require(owner != address(0), "CRC20: approve from the zero address");
-    require(spender != address(0), "CRC20: approve to the zero address");
+    require(owner != address(0), "BEP20: approve from the zero address");
+    require(spender != address(0), "BEP20: approve to the zero address");
 
  
     emit Approval(owner, spender, amount);
